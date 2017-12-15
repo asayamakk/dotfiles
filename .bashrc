@@ -8,13 +8,13 @@ __show_status() {
   local result=$?
   if [ $result -eq 0 ] ; then
     echo '🍙'
-  elif [ $result -eq 1 ] ; then
-    # new line with ctrl-c
-    echo '💭'
+  # elif [ $result -eq 1 ] ; then
+  #   # new line with ctrl-c
+  #   echo '🍰'
   elif [ $result -eq 126 ] ; then
     # permision denied
     echo '🙅'
-  elif [ $result -eq 126 ] ; then
+  elif [ $result -eq 127 ] ; then
     # command not found
     echo '👀'
   elif [ $result -eq 130 ] ; then
@@ -24,4 +24,4 @@ __show_status() {
     echo '🍣'
   fi
 }
-export PS1='\[\033[36m\]\u@\h\[\033[36m\] \[\033[37m\]\w\[\033[32m\]$(__git_ps1)\[\033[00m\]\n$(__show_status)  '
+export PS1='\[\033[33m\][\w]\[\033[32m\]$(__git_ps1)\[\033[00m\]\n$(__show_status)  '
