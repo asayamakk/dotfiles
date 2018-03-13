@@ -7,7 +7,7 @@ GIT_PS1_SHOWDIRTYSTATE=true
 __show_status() {
   local result=$?
   if [ $result -eq 0 ] ; then
-    echo '🍙'
+    echo '🐏'
   # elif [ $result -eq 1 ] ; then
   #   # new line with ctrl-c
   #   echo '🍰'
@@ -24,4 +24,15 @@ __show_status() {
     echo '🍣'
   fi
 }
-export PS1='\[\033[33m\][\w]\[\033[32m\]$(__git_ps1)\[\033[00m\]\n$(__show_status)  '
+
+## togglの今のを表示
+## __show_work() {
+##   local current=$(toggl --cache current | grep Description | awk -F' ' {'print $2'})
+## 
+##   if [ -n "$current" ] ; then
+##     echo $current
+##   else
+##     echo "No tracking"
+##   fi
+## }
+export PS1='\[\033[33m\][\w]\[\033[32m\]$(__git_ps1)\[\e[0m\] \n$(__show_status)  '
