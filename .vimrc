@@ -21,9 +21,10 @@ augroup END
 " インサートのjjをescに割りあてる
 inoremap <silent> jj <ESC>
 
-" パッケージ管理minpac
-" https://qiita.com/k-takata/items/36c240a23f88d699ce86
-" packadd minpac
-" call minpac#init()
-" call minpac#add('k-takata/minpac', {'type': 'opt'})
-" call minpac#add('dhruvasagar/vim-table-mode')
+" パッケージ管理
+" vim-plug
+" https://github.com/junegunn/vim-plug
+call plug#begin('~/.vim/plugged')
+  Plug 'dhruvasagar/vim-table-mode'
+call plug#end()
+
