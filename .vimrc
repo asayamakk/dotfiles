@@ -25,6 +25,14 @@ inoremap <silent> jj <ESC>
 " vim-plug
 " https://github.com/junegunn/vim-plug
 call plug#begin('~/.vim/plugged')
-  Plug 'dhruvasagar/vim-table-mode'
+  Plug 'dhruvasagar/vim-table-mode', {'on': ['TableModeEnable']}
+
+  " Ansi Escapeキャラクタを理解して色付けてくれる
+  " 後発のPluginもある
+  " https://github.com/vim-scripts/Improved-AnsiEsc
+  Plug 'vim-scripts/AnsiEsc.vim', {'on': ['AnsiEsc']}
 call plug#end()
+
+" vim-table-modeで Markdown Compatibleなtableで整形してくれる
+let g:table_mode_corner='|'
 
