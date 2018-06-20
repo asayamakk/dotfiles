@@ -25,14 +25,4 @@ __show_status() {
   fi
 }
 
-## togglの今のを表示
-## __show_work() {
-##   local current=$(toggl --cache current | grep Description | awk -F' ' {'print $2'})
-## 
-##   if [ -n "$current" ] ; then
-##     echo $current
-##   else
-##     echo "No tracking"
-##   fi
-## }
 export PS1='\[\033[33m\][\w]\[\033[32m\]$(__git_ps1)\[\e[0m\] \n$(__show_status)  '
