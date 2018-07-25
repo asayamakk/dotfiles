@@ -25,4 +25,4 @@ __show_status() {
   fi
 }
 
-export PS1='\[\033[33m\][\w]\[\033[32m\]$(__git_ps1)\[\e[0m\] \n$(__show_status)  '
+export PS1='\[\033[33m\][\w]\[\033[32m\]$(__git_ps1)\[\e[0m\] \n$(__show_status) '
