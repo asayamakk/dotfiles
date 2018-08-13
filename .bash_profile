@@ -5,6 +5,7 @@ export LESS='-R'
 
 export HISTTIMEFORMAT='%Y-%m-%dT%T%z '
 export HISTSIZE=50000
+export XDG_CONFIG_HOME=~/.config
 
 
 # Go

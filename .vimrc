@@ -1,6 +1,6 @@
 set encoding=utf-8
 scriptencoding utf-8
-set fileencodings=iso-2022-jp,euc-jp,sjis,utf-8
+set fileencodings=utf-8,iso-2022-jp,euc-jp,sjis
 set fileformats=unix,dos,mac
 
 syntax on
@@ -109,6 +109,26 @@ call plug#begin('~/.vim/plugged')
   " Twitter
   Plug 'twitvim/twitvim', {'on': ['PosttoTwitter', 'FriendsTwitter', 'UserTwitter', 'MentionsTwitter', 'PublicTwitter', 'DMTwitter', 'SearchTwitter']}
 
+
+  if has('nvim')
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+    Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
+
+    " Completion Framework for Neovim
+    " Plug 'ncm2/ncm2'
+    " ncm2s dependency
+    " Plug 'roxma/nvim-yarp'
+
+
+  else
+    Plug 'Shougo/deoplete.nvim'
+    Plug 'roxma/nvim-yarp'
+    Plug 'roxma/vim-hug-neovim-rpc'
+  endif
+
 call plug#end()
 
 " vim-table-modeで Markdown Compatibleなtableで整形してくれる
@@ -142,6 +162,33 @@ let g:lightline = {
 
 " twitvim
 let twitvim_count = 200
+
+" deoplete
+" let g:deoplete#enable_at_startup = 1
+
+" ruby fileではsolargraph をLSPサーバとして起動
+let g:LanguageClient_serverCommands = {
+    \ 'ruby': ['solargraph', 'stdio'],
+\}
+
+" LanguageClient settings
+set signcolumn=yes
+set hidden
+let g:LanguageClient_loggingFile = '/tmp/LanguageClient.log'
+let g:LanguageClient_loggingLevel = 'INFO'
+let g:LanguageClient_serverStderr = '/tmp/LanguageServer.log'
+
+
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+
+" call LanguageClient#textDocument_definition({'gotoCmd': 'split'})
+call deoplete#custom#source('LanguageClient',
+            \ 'min_pattern_length',
+            \ 2)
+
+
 
 
 " 使ってないやつ↓
