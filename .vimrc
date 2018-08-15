@@ -10,6 +10,7 @@ set smartindent
 set expandtab
 set shiftwidth=2
 set tabstop=2
+set completeopt+=preview
 
 
 " 不可視文字を表示
@@ -111,16 +112,10 @@ call plug#begin('~/.vim/plugged')
 
 
   if has('nvim')
-    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-    Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
-
-    " Completion Framework for Neovim
-    " Plug 'ncm2/ncm2'
-    " ncm2s dependency
-    " Plug 'roxma/nvim-yarp'
+    Plug 'prabirshrestha/async.vim'
+    Plug 'prabirshrestha/vim-lsp'
+    Plug 'prabirshrestha/asyncomplete.vim'
+    Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
 
   else
@@ -163,34 +158,19 @@ let g:lightline = {
 " twitvim
 let twitvim_count = 200
 
-" deoplete
-" let g:deoplete#enable_at_startup = 1
-
 " ruby fileではsolargraph をLSPサーバとして起動
 let g:LanguageClient_serverCommands = {
     \ 'ruby': ['solargraph', 'stdio'],
 \}
 
-" LanguageClient settings
-set signcolumn=yes
-set hidden
-let g:LanguageClient_loggingFile = '/tmp/LanguageClient.log'
-let g:LanguageClient_loggingLevel = 'INFO'
-let g:LanguageClient_serverStderr = '/tmp/LanguageServer.log'
-
-
-nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
-
-" call LanguageClient#textDocument_definition({'gotoCmd': 'split'})
-call deoplete#custom#source('LanguageClient',
-            \ 'min_pattern_length',
-            \ 2)
-
-
-
-
-" 使ってないやつ↓
-" Rename <filename> でリネームできるようになる
-" command! -nargs=1 -complete=file Rename f <args>|call delete(expand('#'))
+if executable('solargraph')
+  augroup SetupLsp
+    autocmd!
+    autocmd User lsp_setup call lsp#register_server({
+          \ 'name': 'solargraph',
+          \ 'cmd': {server_info->[&shell, &shellcmdflag, 'solargraph stdio']},
+          \ 'initialization_options': {"diagnostics": "true"},
+          \ 'whitelist': ['ruby'],
+          \ })
+  augroup END
+endif
