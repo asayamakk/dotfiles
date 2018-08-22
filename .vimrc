@@ -50,7 +50,7 @@ augroup END
 
 fun! StripTrailingWhiteSpace()
   " markdown以外のファイルの末尾のスペースを取り除く
-  if &ft =~ 'markdown'
+  if &filetype =~ 'markdown'
     return
   endif
   %s/\s\+$//e
@@ -59,6 +59,13 @@ augroup stripSpace
   autocmd!
   autocmd bufwritepre * :call StripTrailingWhiteSpace()
 augroup END
+
+fun! RubocopFix()
+  " .rubocop.ymlがあればfixする
+  if !empty(glob($PWD . '/.rubocop.yml')) && executable('rubocop')
+    !rubocop --config .rubocop.yml --auto-correct %
+  endif
+endfun
 
 
 " VimGrep + QuickFix
@@ -84,9 +91,6 @@ call plug#begin('~/.vim/plugged')
 
   " C-pで検索できる
   Plug 'ctrlpvim/ctrlp.vim'
-  " ctrlp のmatcher, はやいらしい
-  " https://mattn.kaoriya.net/software/vim/20150605164551.htm
-  " Plug 'nixprime/cpsm'
 
   " powerline的な
   " https://itchyny.hatenablog.com/entry/20130828/1377653592
@@ -97,6 +101,9 @@ call plug#begin('~/.vim/plugged')
 
   " nginxのシンタックスハイライト
   Plug 'chr4/nginx.vim', {'for': 'nginx'}
+
+  " async lint と fix
+  Plug 'w0rp/ale'
 
   " Recover
   Plug 'chrisbra/Recover.vim'
@@ -112,10 +119,10 @@ call plug#begin('~/.vim/plugged')
 
 
   if has('nvim')
-    Plug 'prabirshrestha/async.vim'
-    Plug 'prabirshrestha/vim-lsp'
-    Plug 'prabirshrestha/asyncomplete.vim'
-    Plug 'prabirshrestha/asyncomplete-lsp.vim'
+    " Plug 'prabirshrestha/async.vim'
+    " Plug 'prabirshrestha/vim-lsp'
+    " Plug 'prabirshrestha/asyncomplete.vim'
+    " Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
 
   else
@@ -158,19 +165,8 @@ let g:lightline = {
 " twitvim
 let twitvim_count = 200
 
-" ruby fileではsolargraph をLSPサーバとして起動
-let g:LanguageClient_serverCommands = {
-    \ 'ruby': ['solargraph', 'stdio'],
+" ale + rubocop
+let g:ale_fixers = {
+\   'ruby': ['rubocop'],
 \}
-
-if executable('solargraph')
-  augroup SetupLsp
-    autocmd!
-    autocmd User lsp_setup call lsp#register_server({
-          \ 'name': 'solargraph',
-          \ 'cmd': {server_info->[&shell, &shellcmdflag, 'solargraph stdio']},
-          \ 'initialization_options': {"diagnostics": "true"},
-          \ 'whitelist': ['ruby'],
-          \ })
-  augroup END
-endif
+let g:ale_fix_on_save = 1
