@@ -5,7 +5,6 @@ alias kabe='open /System/Library/CoreServices/ScreenSaverEngine.app'
 alias grep='ggrep'
 alias apps='sh ~/scripts/startup.sh'
 alias g='func_cd_ghq_list'
-alias kanban="open  https://sd-redmine.gmo-media.jp/rb/projects/pointtown/taskboard"
 alias ll="ls -la"
 alias amesh='docker run -e TERM_PROGRAM --rm otiai10/amesh'
 

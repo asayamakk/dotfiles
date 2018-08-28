@@ -66,6 +66,7 @@ fun! RubocopFix()
     !rubocop --config .rubocop.yml --auto-correct %
   endif
 endfun
+nnoremap <Leader>r :call RubocopFix()<CR>
 
 
 " VimGrep + QuickFix
@@ -74,6 +75,9 @@ nnoremap [q :cprevious<CR>   " 前へ
 nnoremap ]q :cnext<CR>       " 次へ
 nnoremap [Q :<C-u>cfirst<CR> " 最初へ
 nnoremap ]Q :<C-u>clast<CR>  " 最後へ
+
+" ctagsのジャンプで複数候補がある場合は一覧表示
+nnoremap <C-]> g<C-]>
 
 " パッケージ管理
 " vim-plug
@@ -169,4 +173,3 @@ let twitvim_count = 200
 let g:ale_fixers = {
 \   'ruby': ['rubocop'],
 \}
-let g:ale_fix_on_save = 1

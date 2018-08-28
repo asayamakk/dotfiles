@@ -24,11 +24,8 @@ export PATH=$PATH:$HOME/src/google-cloud-sdk/bin
 export PATH=$HOME/bin:$PATH
 
 # bash-completion
-[ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
-
-if [ -f ~/.bashrc ] ; then
-    source ~/.bashrc
-fi
+[ -f /usr/local/etc/bash_completion ] && source /usr/local/etc/bash_completion
+[ -f ~/.bashrc ] && source ~/.bashrc
 
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
 eval "$(rbenv init -)"
