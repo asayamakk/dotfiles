@@ -1,4 +1,5 @@
-source ~/dotfiles/functions.sh
+[ -f ~/dotfiles/functions.sh ] && source ~/dotfiles/functions.sh
+[ -f ~/dotfiles/alias.sh.private ] && source ~/dotfiles/alias.sh.private
 
 alias etu='perl -MEncode -nle '\''binmode STDOUT, ":utf8"; print Encode::decode('\''eucjp'\'', $_)'\'''
 alias kabe='open /System/Library/CoreServices/ScreenSaverEngine.app'
