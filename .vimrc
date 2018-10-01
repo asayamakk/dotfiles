@@ -12,6 +12,9 @@ set shiftwidth=2
 set tabstop=2
 set completeopt+=preview
 
+set hidden
+set confirm
+set autoread
 
 " 不可視文字を表示
 set list
@@ -79,6 +82,13 @@ nnoremap ]Q :<C-u>clast<CR>  " 最後へ
 " ctagsのジャンプで複数候補がある場合は一覧表示
 nnoremap <C-]> g<C-]>
 
+" space + p でfzfのファイル検索
+nnoremap <Leader>p :GFiles<CR>
+
+" tabの移動
+nnoremap <Leader>j :tabnext<CR>
+nnoremap <Leader>k :tabprevious<CR>
+
 " パッケージ管理
 " vim-plug
 " https://github.com/junegunn/vim-plug
@@ -93,8 +103,13 @@ call plug#begin('~/.vim/plugged')
   " :OverCommandLine で置換の結果をリアルタイムに表示してくれる
   Plug 'osyo-manga/vim-over', {'on': ['OverCommandLine']}
 
-  " C-pで検索できる
-  Plug 'ctrlpvim/ctrlp.vim'
+  " fzf
+  Plug '/usr/local/opt/fzf'
+  Plug 'junegunn/fzf.vim'
+
+  Plug 'thinca/vim-ref'
+  Plug 'yuku/vim-ref-ri', {'for': 'ruby'}
+
 
   " powerline的な
   " https://itchyny.hatenablog.com/entry/20130828/1377653592
@@ -122,34 +137,20 @@ call plug#begin('~/.vim/plugged')
   Plug 'twitvim/twitvim', {'on': ['PosttoTwitter', 'FriendsTwitter', 'UserTwitter', 'MentionsTwitter', 'PublicTwitter', 'DMTwitter', 'SearchTwitter']}
 
 
-  if has('nvim')
-    " Plug 'prabirshrestha/async.vim'
-    " Plug 'prabirshrestha/vim-lsp'
-    " Plug 'prabirshrestha/asyncomplete.vim'
-    " Plug 'prabirshrestha/asyncomplete-lsp.vim'
+  Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': 'go' }
 
-
-  else
-    Plug 'Shougo/deoplete.nvim'
-    Plug 'roxma/nvim-yarp'
-    Plug 'roxma/vim-hug-neovim-rpc'
-  endif
-
+  " Rubyでif/def<->endにjumpできる
+  Plug 'vim-scripts/ruby-matchit', {'for': 'ruby'}
 call plug#end()
 
 " vim-table-modeで Markdown Compatibleなtableで整形してくれる
 let g:table_mode_corner='|'
 
-" CtrlPのmatcherをcpsmにする
-" https://github.com/nixprime/cpsm
-" let g:ctrlp_match_func = {'match': 'cpsm#CtrlPMatch'}
-
-" ctrlp smarttabsの設定
-let g:ctrlp_extensions = ['smarttabs']
-
 " ansible-vimで、2行以上yamlの空行があるとindentを戻す
 let g:ansible_unindent_after_newline = 1
 let g:seoul256_background = 233
+
+let g:indentLine_char = '‖'
 
 augroup MyStartup
   autocmd!
