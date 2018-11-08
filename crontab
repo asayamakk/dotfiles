@@ -1,3 +1,5 @@
+SHELL=/bin/bash
 */5 * * * * ~/.config/memo/asayamakk/autocommit.sh >/dev/null 2>&1
 */30 * * * * ~/scripts/turn_on_flux.sh
 0 11 * * 1-5 ruby ~/scripts/slackrich.rb --channel=#engineer-blog-cmte >> /tmp/slack.log 2>&1
+30 10 * * 1-5 ~/scripts/coeteco/up_docker_and_data_copy.sh

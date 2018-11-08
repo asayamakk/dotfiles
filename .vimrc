@@ -141,6 +141,9 @@ call plug#begin('~/.vim/plugged')
 
   " Rubyでif/def<->endにjumpできる
   Plug 'vim-scripts/ruby-matchit', {'for': 'ruby'}
+
+  Plug 'vim-scripts/SQLUtilities'
+  Plug 'vim-scripts/Align'
 call plug#end()
 
 " vim-table-modeで Markdown Compatibleなtableで整形してくれる
