@@ -29,3 +29,13 @@ export PATH=$HOME/bin:$PATH
 
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
 eval "$(rbenv init -)"
+
+# gcloud
+## The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/usr0200557/src/google-cloud-sdk/path.bash.inc' ]; then . '/Users/usr0200557/src/google-cloud-sdk/path.bash.inc'; fi
+## The next line enables shell command completion for gcloud.
+if [ -f '/Users/usr0200557/src/google-cloud-sdk/completion.bash.inc' ]; then . '/Users/usr0200557/src/google-cloud-sdk/completion.bash.inc'; fi
+
+# enable direnv hook
+## https://github.com/zimbatm/direnv
+eval "$(direnv hook bash)"

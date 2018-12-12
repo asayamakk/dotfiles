@@ -85,6 +85,9 @@ nnoremap <C-]> g<C-]>
 " space + p でfzfのファイル検索
 nnoremap <Leader>p :GFiles<CR>
 
+" space + o でfzfのファイル検索(git以外も)
+nnoremap <Leader>o :Files<CR>
+
 " tabの移動
 nnoremap <Leader>j :tabnext<CR>
 nnoremap <Leader>k :tabprevious<CR>
@@ -117,6 +120,8 @@ call plug#begin('~/.vim/plugged')
 
   " Ansibleのシンタックスハイライト
   Plug 'pearofducks/ansible-vim'
+
+  Plug 'hashivim/vim-terraform'
 
   " nginxのシンタックスハイライト
   Plug 'chr4/nginx.vim', {'for': 'nginx'}
