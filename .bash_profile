@@ -1,5 +1,6 @@
 [ -f ~/dotfiles/alias.sh ] && . ~/dotfiles/alias.sh
 
+export EDITOR=vim
 export LESS='-R'
 # export LESSOPEN='| /usr/local/bin/src-hilite-lesspipe.sh %s'
 

@@ -149,6 +149,7 @@ call plug#begin('~/.vim/plugged')
 
   Plug 'vim-scripts/SQLUtilities'
   Plug 'vim-scripts/Align'
+  Plug 'mechatroner/rainbow_csv'
 call plug#end()
 
 " vim-table-modeで Markdown Compatibleなtableで整形してくれる
