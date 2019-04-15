@@ -110,6 +110,9 @@ call plug#begin('~/.vim/plugged')
   Plug '/usr/local/opt/fzf'
   Plug 'junegunn/fzf.vim'
 
+  " Git連携
+  Plug 'tpope/vim-fugitive'
+
   Plug 'thinca/vim-ref'
   Plug 'yuku/vim-ref-ri', {'for': 'ruby'}
 
@@ -130,7 +133,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'w0rp/ale'
 
   " Recover
-  Plug 'chrisbra/Recover.vim'
+  " Plug 'chrisbra/Recover.vim'
 
   " indentに縦線
   Plug 'Yggdroot/indentLine', {'on': ['IndentLinesToggle']}
@@ -163,7 +166,6 @@ let g:indentLine_char = '‖'
 
 augroup MyStartup
   autocmd!
-  autocmd VimEnter * RecoverPluginEnable
   autocmd VimEnter * colo seoul256
 augroup END
 

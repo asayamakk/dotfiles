@@ -21,7 +21,7 @@ eval "$(hub alias -s)"
 
 export PATH=$PATH:$GOPATH/bin
 export PATH=$HOME/.nodebrew/current/bin:$PATH
-export PATH=$PATH:$HOME/src/google-cloud-sdk/bin
+export PATH=$HOME/src/google-cloud-sdk/bin:$PATH
 export PATH=$HOME/bin:$PATH
 
 # bash-completion
