@@ -62,6 +62,10 @@ augroup stripSpace
   autocmd!
   autocmd bufwritepre * :call StripTrailingWhiteSpace()
 augroup END
+augroup markdownPresentation
+  autocmd!
+  au FileType markdown let b:presenting_slide_separator = '---'
+augroup END
 
 fun! RubocopFix()
   " .rubocop.ymlがあればfixする
@@ -89,8 +93,8 @@ nnoremap <Leader>p :GFiles<CR>
 nnoremap <Leader>o :Files<CR>
 
 " tabの移動
-nnoremap <Leader>j :tabnext<CR>
-nnoremap <Leader>k :tabprevious<CR>
+nnoremap <Leader>] :tabnext<CR>
+nnoremap <Leader>[ :tabprevious<CR>
 
 " パッケージ管理
 " vim-plug
@@ -121,10 +125,10 @@ call plug#begin('~/.vim/plugged')
   " https://itchyny.hatenablog.com/entry/20130828/1377653592
   Plug 'itchyny/lightline.vim'
 
-  " Ansibleのシンタックスハイライト
+  " シンタックスハイライト ansible/terraform/jinja2
   Plug 'pearofducks/ansible-vim'
-
   Plug 'hashivim/vim-terraform'
+  Plug 'Glench/Vim-Jinja2-Syntax'
 
   " nginxのシンタックスハイライト
   Plug 'chr4/nginx.vim', {'for': 'nginx'}
@@ -132,11 +136,10 @@ call plug#begin('~/.vim/plugged')
   " async lint と fix
   Plug 'w0rp/ale'
 
-  " Recover
-  " Plug 'chrisbra/Recover.vim'
-
   " indentに縦線
   Plug 'Yggdroot/indentLine', {'on': ['IndentLinesToggle']}
+  " アウトライン
+  Plug 'majutsushi/tagbar', {'on': ['TagbarToggle']}
 
   " ColorSchema
   Plug 'junegunn/seoul256.vim'
@@ -153,6 +156,9 @@ call plug#begin('~/.vim/plugged')
   Plug 'vim-scripts/SQLUtilities'
   Plug 'vim-scripts/Align'
   Plug 'mechatroner/rainbow_csv'
+  Plug 'sotte/presenting.vim', {'on': ['PresentingStart']}
+
+  Plug 'christoomey/vim-tmux-navigator'
 call plug#end()
 
 " vim-table-modeで Markdown Compatibleなtableで整形してくれる
@@ -162,7 +168,7 @@ let g:table_mode_corner='|'
 let g:ansible_unindent_after_newline = 1
 let g:seoul256_background = 233
 
-let g:indentLine_char = '‖'
+let g:indentLine_char = '▏'
 
 augroup MyStartup
   autocmd!
@@ -185,3 +191,19 @@ let twitvim_count = 200
 let g:ale_fixers = {
 \   'ruby': ['rubocop'],
 \}
+
+" https://shapeshed.com/vim-netrw/
+" netrwを使いやすく
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 4
+let g:netrw_altv = 1
+let g:netrw_winsize = 10
+
+" https://qiita.com/izumin5210/items/d2e352de1e541ff97079
+" <C-w> 系を Vim Tmux Navigator に移譲する
+nnoremap <silent> <C-w>h :TmuxNavigateLeft<cr>
+nnoremap <silent> <C-w>j :TmuxNavigateDown<cr>
+nnoremap <silent> <C-w>k :TmuxNavigateUp<cr>
+nnoremap <silent> <C-w>l :TmuxNavigateRight<cr>
+nnoremap <silent> <C-w>\\ :TmuxNavigatePrevious<cr>

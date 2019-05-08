@@ -251,7 +251,8 @@ tmux_conf_battery_vbar_palette='gradient'
 # tmux_conf_battery_status_charging='↑'       # U+2191
 # tmux_conf_battery_status_discharging='↓'    # U+2193
 # tmux_conf_battery_status_charging='⚡ '    # U+26A1
-tmux_conf_battery_status_charging='🔌 '    # U+1F50C
+# tmux_conf_battery_status_charging='🔌 '    # U+1F50C
+tmux_conf_battery_status_charging='⚡️ '    # U+1F50C
 tmux_conf_battery_status_discharging='🔋 ' # U+1F50B
 
 # clock style
@@ -266,7 +267,7 @@ tmux_conf_theme_clock_style='24'
 #   - false (default)
 # on macOS, this requires installing reattach-to-user-namespace, see README.md
 # on Linux, this requires xsel or xclip
-tmux_conf_copy_to_os_clipboard=false
+tmux_conf_copy_to_os_clipboard=true
 
 
 # -- user customizations -------------------------------------------------------
@@ -292,3 +293,23 @@ set -g mode-keys vi
 
 # move status line to top
 #set -g status-position top
+#
+
+# C-w + hjklでvimでもtmuxでもpane移動できるようになる
+# https://qiita.com/izumin5210/items/d2e352de1e541ff97079
+# `C-s` で NAVIGATOR table に切り替え
+bind -n C-w switch-client -T NAVIGATOR
+# See: https://github.com/christoomey/vim-tmux-navigator
+is_vim="ps -o state= -o comm= -t '#{pane_tty}' \
+    | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|n?vim?x?)(diff)?$'"
+# `bind-key -n` のかわりに `bind -T NAVIGATOR` にする
+# `send-keys h` のかわりに `send-keys C-w h` にする
+bind -T NAVIGATOR h if-shell "$is_vim" "send-keys C-w h"  "select-pane -L"
+bind -T NAVIGATOR j if-shell "$is_vim" "send-keys C-w j"  "select-pane -D"
+bind -T NAVIGATOR k if-shell "$is_vim" "send-keys C-w k"  "select-pane -U"
+bind -T NAVIGATOR l if-shell "$is_vim" "send-keys C-w l"  "select-pane -R"
+bind -T NAVIGATOR \ if-shell "$is_vim" "send-keys C-w \\" "select-pane -l"
+# `C-w` が Tmux に喰われてしまうので，2回打つことで Vim に `C-w` を送れるようにして救う
+# 使用頻度の高い Window command がある場合は，明示的に `bind -T NAVIGATOR <key> send-keys C-w <key>` すればいい
+bind -T NAVIGATOR C-w send-keys C-w
+

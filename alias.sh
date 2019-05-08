@@ -31,7 +31,7 @@ alias g='_func_cd_ghq_list'
 alias ll="ls -la"
 alias amesh='docker run -e TERM_PROGRAM --rm otiai10/amesh'
 alias current-branch='git status | head -1 | sed -e "s/On branch //"'
-type gsed >/dev/null 2>&1 && alias sed='gsed'
+# type gsed >/dev/null 2>&1 && alias sed='gsed'
 
 
 # ctagsをbrewでinstallしていたら
