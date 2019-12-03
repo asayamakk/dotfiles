@@ -7,7 +7,7 @@ export LESS='-R'
 export HISTTIMEFORMAT='%Y-%m-%dT%T%z '
 export HISTSIZE=50000
 export XDG_CONFIG_HOME=~/.config
-
+export DISABLE_SPRING=1
 
 # Go
 export GOPATH=$HOME/go
@@ -20,8 +20,8 @@ eval "$(goenv init -)"
 eval "$(hub alias -s)"
 
 export PATH=$PATH:$GOPATH/bin
-export PATH=$HOME/.nodebrew/current/bin:$PATH
 export PATH=$HOME/src/google-cloud-sdk/bin:$PATH
+export PATH=$HOME/src/flutter/bin:$PATH
 export PATH=$HOME/bin:$PATH
 
 # bash-completion
@@ -30,6 +30,7 @@ export PATH=$HOME/bin:$PATH
 
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
 eval "$(rbenv init -)"
+eval "$(nodenv init -)"
 
 # gcloud
 ## The next line updates PATH for the Google Cloud SDK.

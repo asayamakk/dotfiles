@@ -50,6 +50,11 @@ augroup ymlFile
   autocmd FileType yaml setlocal sw=2 sts=2 ts=2 expandtab smartindent number
 augroup END
 
+augroup tsvFile
+  autocmd!
+  autocmd FileType tsv setlocal sw=10 sts=10 ts=10 noexpandtab smartindent number
+augroup END
+
 
 fun! StripTrailingWhiteSpace()
   " markdown以外のファイルの末尾のスペースを取り除く
@@ -96,6 +101,10 @@ nnoremap <Leader>o :Files<CR>
 nnoremap <Leader>] :tabnext<CR>
 nnoremap <Leader>[ :tabprevious<CR>
 
+
+let g:ale_completion_enabled = 1
+
+
 " パッケージ管理
 " vim-plug
 " https://github.com/junegunn/vim-plug
@@ -136,6 +145,8 @@ call plug#begin('~/.vim/plugged')
   " async lint と fix
   Plug 'w0rp/ale'
 
+  Plug 'elmcast/elm-vim', { 'for': 'elm' }
+
   " indentに縦線
   Plug 'Yggdroot/indentLine', {'on': ['IndentLinesToggle']}
   " アウトライン
@@ -146,7 +157,6 @@ call plug#begin('~/.vim/plugged')
 
   " Twitter
   Plug 'twitvim/twitvim', {'on': ['PosttoTwitter', 'FriendsTwitter', 'UserTwitter', 'MentionsTwitter', 'PublicTwitter', 'DMTwitter', 'SearchTwitter']}
-
 
   Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': 'go' }
 
@@ -187,10 +197,25 @@ let g:lightline = {
 " twitvim
 let twitvim_count = 200
 
-" ale + rubocop
+" =========
+" ale
+" =========
 let g:ale_fixers = {
+\   'elm': ['elm-format'],
 \   'ruby': ['rubocop'],
 \}
+
+let g:ale_linters = {
+\   'elm': ['elm_ls']
+\}
+
+
+" =========
+" elm
+" =========
+" https://github.com/elm-tooling/elm-vim
+"
+" language server
 
 " https://shapeshed.com/vim-netrw/
 " netrwを使いやすく

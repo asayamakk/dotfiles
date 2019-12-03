@@ -293,7 +293,12 @@ set -g mode-keys vi
 
 # move status line to top
 #set -g status-position top
-#
+
+# Disable Notofication
+# https://git.pado.name/pado/dotfiles/commit/d104e8b013ed2bfc06d55a7b4385598c0b238ae6
+setw -g monitor-activity off
+set -g visual-activity off
+
 
 # C-w + hjklでvimでもtmuxでもpane移動できるようになる
 # https://qiita.com/izumin5210/items/d2e352de1e541ff97079
