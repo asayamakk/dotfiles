@@ -21,9 +21,14 @@ export PATH=$HOME/bin:$PATH
 
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
 
-if hash rbenv nodenv goenv hub 2>/dev/null; then
+if hash rbenv nodenv goenv 2>/dev/null; then
   eval "$(rbenv init -)"
   eval "$(nodenv init -)"
-  eval "$(hub alias -s)"
   eval "$(goenv init -)"
 fi
+
+if hash hub 2>/dev/null; then
+  eval "$(hub alias -s)"
+fi
+
+export BASH_SILENCE_DEPRECATION_WARNING=1
