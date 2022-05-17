@@ -309,11 +309,11 @@ is_vim="ps -o state= -o comm= -t '#{pane_tty}' \
     | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|n?vim?x?)(diff)?$'"
 # `bind-key -n` のかわりに `bind -T NAVIGATOR` にする
 # `send-keys h` のかわりに `send-keys C-w h` にする
-bind -T NAVIGATOR h if-shell "$is_vim" "send-keys C-w h"  "select-pane -L"
-bind -T NAVIGATOR j if-shell "$is_vim" "send-keys C-w j"  "select-pane -D"
-bind -T NAVIGATOR k if-shell "$is_vim" "send-keys C-w k"  "select-pane -U"
-bind -T NAVIGATOR l if-shell "$is_vim" "send-keys C-w l"  "select-pane -R"
-bind -T NAVIGATOR \ if-shell "$is_vim" "send-keys C-w \\" "select-pane -l"
+# bind -T NAVIGATOR h if-shell "$is_vim" "send-keys C-w h"  "select-pane -L"
+# bind -T NAVIGATOR j if-shell "$is_vim" "send-keys C-w j"  "select-pane -D"
+# bind -T NAVIGATOR k if-shell "$is_vim" "send-keys C-w k"  "select-pane -U"
+# bind -T NAVIGATOR l if-shell "$is_vim" "send-keys C-w l"  "select-pane -R"
+# bind -T NAVIGATOR \ if-shell "$is_vim" "send-keys C-w \\" "select-pane -l"
 # `C-w` が Tmux に喰われてしまうので，2回打つことで Vim に `C-w` を送れるようにして救う
 # 使用頻度の高い Window command がある場合は，明示的に `bind -T NAVIGATOR <key> send-keys C-w <key>` すればいい
 bind -T NAVIGATOR C-w send-keys C-w

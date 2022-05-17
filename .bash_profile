@@ -1,4 +1,5 @@
 [ -f ~/dotfiles/alias.sh ] && . ~/dotfiles/alias.sh
+[ -f ~/dotfiles/alias.private.sh ] && . ~/dotfiles/alias.private.sh
 
 export EDITOR=vim
 export LESS='-R'
@@ -17,6 +18,11 @@ export PATH=$HOME/src/flutter/bin:$PATH
 
 # bash-completion
 [ -f /usr/local/etc/bash_completion ] && source /usr/local/etc/bash_completion
+if [ -d ~/.bash_completion.d ]; then
+  for bcfile in ~/.bash_completion.d/* ; do
+    . $bcfile
+  done
+fi
 [ -f ~/.bashrc ] && source ~/.bashrc
 
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
@@ -37,6 +43,7 @@ if hash hub 2>/dev/null; then
   eval "$(hub alias -s)"
 fi
 
+. "$HOME/.cargo/env"
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export PATH=$HOME/bin:$PATH
 

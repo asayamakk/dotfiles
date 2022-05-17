@@ -21,6 +21,14 @@ function gwt() {
   fi
 }
 
+# function rails() {
+#   if [ -f ./bin/rails ]; then
+#     ./bin/rails $@
+#   else
+#     ~/.rbenv/shims/rails $@
+#   fi
+# }
+
 [ -f ~/dotfiles/alias.sh.private ] && source ~/dotfiles/alias.sh.private
 
 alias etu='perl -MEncode -nle '\''binmode STDOUT, ":utf8"; print Encode::decode('\''eucjp'\'', $_)'\'''
