@@ -1,3 +1,13 @@
+function aws_mfa {
+  unset AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN
+  read -p "MFAトークン: " token
+  eval `aws sts get-session-token \
+          --serial-number $(aws sts get-caller-identity --query Arn --output text | sed 's/:user/:mfa/') \
+          --token-code ${token} \
+          --duration-seconds 129600 \
+        | awk ' $1 == "\"AccessKeyId\":" { gsub(/\"/,""); gsub(/,/,""); print "export AWS_ACCESS_KEY_ID="$2 } $1 == "\"SecretAccessKey\":" { gsub(/\"/,""); gsub(/,/,""); print "export AWS_SECRET_ACCESS_KEY="$2} $1 == "\"SessionToken\":" { gsub(/\"/,""); gsub(/,/,""); print "export AWS_SESSION_TOKEN="$2 } '`
+}
+
 function _func_cd_ghq_list () {
   selected=$(ghq list | fzf)
   [ -z $selected ] && change_to=$(pwd) || change_to=$(ghq root)/$selected
@@ -42,3 +52,4 @@ alias current-branch='git status | head -1 | sed -e "s/On branch //"'
 test -L /usr/local/bin/ctags && alias ctags="/usr/local/bin/ctags"
 
 alias netstat-lntp='sudo lsof -nP -iTCP -sTCP:LISTEN'
+
